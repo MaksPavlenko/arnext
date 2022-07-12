@@ -1,6 +1,6 @@
 import React from 'react';
 import { graphql } from 'gatsby';
-import MediaQuery from 'react-responsive';
+// import MediaQuery from 'react-responsive';
 import useLanguage from '../hooks/useLanguage';
 import '../styles/style.sass';
 
@@ -20,6 +20,10 @@ import HomeServices from '../components/Pages/Home/HomeServices/HomeServices';
 
 // import servicesStatic from '../db/servicesStatic';
 import homeData from '../db/homeData';
+import {
+  MediaMaxWidth,
+  MediaMinWidh,
+} from '../components/UI/MadiaQueryWrapper/MadiaQueryWrapper';
 
 const IndexPage = ({ data }) => {
   // const staticServices = servicesStatic;
@@ -50,9 +54,12 @@ const IndexPage = ({ data }) => {
           storyImage={dataHomePage.story_image}
           dataStory={dataHomePage.story}
         />
-        <MediaQuery minWidth={768}>
+        {/* <MediaQuery minWidth={768}>
           <Video cover={dataHomePage.cover_image} url={dataHomePage.video} />
-        </MediaQuery>
+        </MediaQuery> */}
+        <MediaMinWidh>
+          <Video cover={dataHomePage.cover_image} url={dataHomePage.video} />
+        </MediaMinWidh>
         <HomeServices
           services={homeData.services}
           markerCount={'02'}
@@ -67,7 +74,7 @@ const IndexPage = ({ data }) => {
             homeData.services.title_en
           )}
         />
-        <MediaQuery minWidth={768}>
+        {/* <MediaQuery minWidth={768}>
           <CasesSlider
             dataPortfolio={data.allStrapiPortfolio.nodes}
             markerCount={'03'}
@@ -78,8 +85,21 @@ const IndexPage = ({ data }) => {
               dataHomePage.portfolio.title_en
             )}
           />
-        </MediaQuery>
-        <MediaQuery maxWidth={767}>
+        </MediaQuery> */}
+        <MediaMinWidh>
+          <CasesSlider
+            dataPortfolio={data.allStrapiPortfolio.nodes}
+            markerCount={'03'}
+            markerTitle={useLanguage('портфоліо', 'Портфолио', 'Portfolio')}
+            sectionTitle={useLanguage(
+              dataHomePage.portfolio.title_ua,
+              dataHomePage.portfolio.title_ru,
+              dataHomePage.portfolio.title_en
+            )}
+          />
+        </MediaMinWidh>
+
+        {/* <MediaQuery maxWidth={767}>
           <PortfolioMobile
             sectionTitle={useLanguage(
               dataHomePage.portfolio.title_ua,
@@ -88,7 +108,17 @@ const IndexPage = ({ data }) => {
             )}
             dataPortfolio={data.allStrapiPortfolio.nodes}
           />
-        </MediaQuery>
+        </MediaQuery> */}
+        <MediaMaxWidth>
+          <PortfolioMobile
+            sectionTitle={useLanguage(
+              dataHomePage.portfolio.title_ua,
+              dataHomePage.portfolio.title_ru,
+              dataHomePage.portfolio.title_en
+            )}
+            dataPortfolio={data.allStrapiPortfolio.nodes}
+          />
+        </MediaMaxWidth>
         <Facts
           facts={homeData.facts}
           markerCount={'04'}
@@ -103,9 +133,12 @@ const IndexPage = ({ data }) => {
             homeData.facts.title_en
           )}
         />
-        <MediaQuery minWidth={574}>
+        {/* <MediaQuery minWidth={574}>
           <Quote quotes={dataHomePage.quotes} />
-        </MediaQuery>
+        </MediaQuery> */}
+        <MediaMinWidh>
+          <Quote quotes={dataHomePage.quotes} />
+        </MediaMinWidh>
 
         {/* <ServicesSection
           markerCount={'02'}

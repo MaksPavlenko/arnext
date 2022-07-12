@@ -1,13 +1,17 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-import { useMediaQuery } from 'react-responsive';
+// import { useMediaQuery } from 'react-responsive';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import useLanguage from '../../../../hooks/useLanguage';
 
 import ButtonLink from '../../../UI/ButtonLink/ButtonLink';
 import SectionHeader from '../../../UI/SectionHeader/SectionHeader';
+import {
+  MediaMaxWidth,
+  MediaMinWidh,
+} from '../../../UI/MadiaQueryWrapper/MadiaQueryWrapper';
 
 const HomeStory = ({ dataStory, storyImage }) => {
   const data = useStaticQuery(graphql`
@@ -35,14 +39,17 @@ const HomeStory = ({ dataStory, storyImage }) => {
     }
   `);
 
-  const isDesktop = useMediaQuery({ minWidth: 768 });
+  // const isDesktop = useMediaQuery({ minWidth: 768 });
   // const image = getImage(storyImage.localFile);
 
-  const image = getImage(
-    isDesktop
-      ? data.portraitCover.childImageSharp
-      : data.landscapeCover.childImageSharp
-  );
+  // const image = getImage(
+  //   isDesktop
+  //     ? data.portraitCover.childImageSharp
+  //     : data.landscapeCover.childImageSharp
+  // );
+
+  const imageMd = getImage(data.portraitCover.childImageSharp);
+  const imageSm = getImage(data.landscapeCover.childImageSharp);
 
   const langToggle = useLanguage;
 
@@ -131,11 +138,30 @@ const HomeStory = ({ dataStory, storyImage }) => {
 
       <div className="story-item story-item--2">
         <div className="animate-overlay" ref={(e) => (overlayEl = e)}></div>
-        <GatsbyImage
-          image={image}
-          className="story-item--image"
+        <MediaMaxWidth>
+          <GatsbyImage
+            image={imageSm}
+            className="story-item--image story-item--image__sm"
+            alt={dataStory.title_ru}
+          />
+        </MediaMaxWidth>
+        <MediaMinWidh>
+          <GatsbyImage
+            image={imageMd}
+            className="story-item--image story-item--image__md"
+            alt={dataStory.title_ru}
+          />
+        </MediaMinWidh>
+        {/* <GatsbyImage
+          image={imageMd}
+          className="story-item--image story-item--image__md"
           alt={dataStory.title_ru}
         />
+        <GatsbyImage
+          image={imageSm}
+          className="story-item--image story-item--image__sm"
+          alt={dataStory.title_ru}
+        /> */}
       </div>
     </section>
   );

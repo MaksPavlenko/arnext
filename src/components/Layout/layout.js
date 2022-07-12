@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MediaQuery from 'react-responsive';
+// import MediaQuery from 'react-responsive';
 import { StaticQuery, graphql } from 'gatsby';
 
 import { gsap } from 'gsap';
@@ -84,9 +84,9 @@ const Layout = ({ children }) => {
           </div>
           <Header dataNav={dataNav} dataContacts={data.strapiContacts} />
           <main>{children}</main>
-          <MediaQuery minWidth={574}>
-            <Instagram instaData={data.strapiInstagrams} />
-          </MediaQuery>
+          {/* <MediaQuery minWidth={574}> */}
+          <Instagram instaData={data.strapiInstagrams} />
+          {/* </MediaQuery> */}
           <Footer dataContacts={data.strapiContacts} />
         </div>
       )}
