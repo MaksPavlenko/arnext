@@ -14,7 +14,7 @@ import BlogArticles from '../components/Pages/Blog/BlogArticles/BlogArticles';
 import CrumbsNav from '../components/UI/CrumbsNav/CrumbsNav';
 
 const BlogPage = ({ data }) => {
-  const blogData = data.allStrapiBlogs.nodes;
+  // const blogData = data.allStrapiBlogs.nodes;
   const langToggle = useLanguage;
 
   return (
@@ -41,30 +41,30 @@ export default BlogPage;
 
 export const query = graphql`
   query Blog($language: String!) {
-    allStrapiBlogs(sort: { fields: date, order: DESC }) {
-      nodes {
-        id
-        date
-        title_ua
-        title_ru
-        title_en
-        slug
-        intro_ua
-        intro_ru
-        intro_en
-        image {
-          localFile {
-            childImageSharp {
-              gatsbyImageData(
-                layout: FULL_WIDTH
-                placeholder: BLURRED
-                formats: [AUTO, WEBP, AVIF]
-              )
-            }
-          }
-        }
-      }
-    }
+    # allStrapiBlogs(sort: { fields: date, order: DESC }) {
+    #   nodes {
+    #     id
+    #     date
+    #     title_ua
+    #     title_ru
+    #     title_en
+    #     slug
+    #     intro_ua
+    #     intro_ru
+    #     intro_en
+    #     image {
+    #       localFile {
+    #         childImageSharp {
+    #           gatsbyImageData(
+    #             layout: FULL_WIDTH
+    #             placeholder: BLURRED
+    #             formats: [AUTO, WEBP, AVIF]
+    #           )
+    #         }
+    #       }
+    #     }
+    #   }
+    # }
     locales: allLocale(filter: { language: { eq: $language } }) {
       edges {
         node {

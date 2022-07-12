@@ -19,7 +19,7 @@ import '../styles/style.sass';
 
 const BlogInnerPage = ({ data, pageContext }) => {
   const langToggle = useLanguage;
-  const dataBlog = data.strapiBlogs;
+  // const dataBlog = data.strapiBlogs;
   // const { previous, next } = data;
   // console.log(pageContext);
   return (
@@ -62,45 +62,46 @@ const BlogInnerPage = ({ data, pageContext }) => {
 export default BlogInnerPage;
 
 export const query = graphql`
-  query BlogArticles($language: String!, $id: String!) {
-    strapiBlogs(id: { eq: $id }) {
-      seo_title_ua
-      seo_title_ru
-      seo_title_en
-      seo_description_ua
-      seo_description_ru
-      seo_description_en
-      title_ua
-      title_ru
-      title_en
-      slug
-      image {
-        localFile {
-          childImageSharp {
-            gatsbyImageData(
-              layout: FULL_WIDTH
-              placeholder: BLURRED
-              formats: [AUTO, WEBP, AVIF]
-            )
-          }
-        }
-      }
-      blog_gallery {
-        image {
-          localFile {
-            childImageSharp {
-              gatsbyImageData(
-                layout: FULL_WIDTH
-                placeholder: BLURRED
-                formats: [AUTO, WEBP, AVIF]
-              )
-            }
-          }
-        }
-      }
-      date
-      article_content
-    }
+  query BlogArticles($language: String!) {
+    # query BlogArticles($language: String!, $id: String!) {
+    # strapiBlogs(id: { eq: $id }) {
+    #   seo_title_ua
+    #   seo_title_ru
+    #   seo_title_en
+    #   seo_description_ua
+    #   seo_description_ru
+    #   seo_description_en
+    #   title_ua
+    #   title_ru
+    #   title_en
+    #   slug
+    #   image {
+    #     localFile {
+    #       childImageSharp {
+    #         gatsbyImageData(
+    #           layout: FULL_WIDTH
+    #           placeholder: BLURRED
+    #           formats: [AUTO, WEBP, AVIF]
+    #         )
+    #       }
+    #     }
+    #   }
+    #   blog_gallery {
+    #     image {
+    #       localFile {
+    #         childImageSharp {
+    #           gatsbyImageData(
+    #             layout: FULL_WIDTH
+    #             placeholder: BLURRED
+    #             formats: [AUTO, WEBP, AVIF]
+    #           )
+    #         }
+    #       }
+    #     }
+    #   }
+    #   date
+    #   article_content
+    # }
     locales: allLocale(filter: { language: { eq: $language } }) {
       edges {
         node {

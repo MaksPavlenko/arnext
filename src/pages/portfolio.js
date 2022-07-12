@@ -33,33 +33,33 @@ export default PortfolioPage;
 
 export const query = graphql`
   query PortfolioPage($language: String!) {
-    allStrapiPortfolio(sort: { fields: id, order: DESC }) {
-      nodes {
-        project_name_ua
-        project_name_ru
-        project_name_en
-        sub_title_ua
-        sub_title_ru
-        sub_title_en
-        project_number
-        award
-        slug
-        project_filter {
-          title
-        }
-        main_image {
-          localFile {
-            childImageSharp {
-              gatsbyImageData(
-                layout: FULL_WIDTH
-                placeholder: BLURRED
-                formats: [AUTO, WEBP, AVIF]
-              )
-            }
-          }
-        }
-      }
-    }
+    # allStrapiPortfolio(sort: { fields: id, order: DESC }) {
+    #   nodes {
+    #     project_name_ua
+    #     project_name_ru
+    #     project_name_en
+    #     sub_title_ua
+    #     sub_title_ru
+    #     sub_title_en
+    #     project_number
+    #     award
+    #     slug
+    #     project_filter {
+    #       title
+    #     }
+    #     main_image {
+    #       localFile {
+    #         childImageSharp {
+    #           gatsbyImageData(
+    #             layout: FULL_WIDTH
+    #             placeholder: BLURRED
+    #             formats: [AUTO, WEBP, AVIF]
+    #           )
+    #         }
+    #       }
+    #     }
+    #   }
+    # }
     locales: allLocale(filter: { language: { eq: $language } }) {
       edges {
         node {

@@ -21,7 +21,7 @@ import {
 import servicesInnerStatic from '../db/servicesInnerStatic';
 
 const ServicesInnerPage = ({ data }) => {
-  const dataServices = data.strapiServices;
+  // const dataServices = data.strapiServices;
 
   const langToggle = useLanguage;
 
@@ -125,136 +125,137 @@ const ServicesInnerPage = ({ data }) => {
 export default ServicesInnerPage;
 
 export const query = graphql`
-  query ServicesInner($language: String!, $id: String!) {
-    strapiServices(id: { eq: $id }) {
-      seo_title_ua
-      seo_title_ru
-      seo_title_en
-      seo_description_ua
-      seo_description_ru
-      seo_description_en
-      title_ua
-      title_ru
-      title_en
-      slug
-      image {
-        localFile {
-          childImageSharp {
-            gatsbyImageData(
-              layout: FULL_WIDTH
-              placeholder: BLURRED
-              formats: [AUTO, WEBP, AVIF]
-            )
-          }
-        }
-      }
-      Gallery {
-        image {
-          localFile {
-            childImageSharp {
-              gatsbyImageData(
-                layout: FULL_WIDTH
-                placeholder: BLURRED
-                formats: [AUTO, WEBP, AVIF]
-              )
-            }
-          }
-        }
-      }
-      video
-      cover_image {
-        localFile {
-          childImageSharp {
-            gatsbyImageData(
-              layout: FULL_WIDTH
-              placeholder: BLURRED
-              formats: [AUTO, WEBP, AVIF]
-            )
-          }
-        }
-      }
-      about_style {
-        title_ua
-        title_ru
-        title_en
-        accordion {
-          id
-          title_ua
-          title_ru
-          title_en
-          content_ua
-          content_ru
-          content_en
-        }
-      }
-      packages {
-        title_ua
-        title_ru
-        title_en
-      }
-      projects {
-        title_ua
-        title_ru
-        title_en
-      }
-      portfolios {
-        id
-        project_name_ua
-        project_name_ru
-        project_name_en
-        project_number
-        slug
-        sub_title_ua
-        sub_title_ru
-        sub_title_en
-        main_image {
-          localFile {
-            childImageSharp {
-              gatsbyImageData(
-                layout: FULL_WIDTH
-                placeholder: BLURRED
-                formats: [AUTO, WEBP, AVIF]
-              )
-            }
-          }
-        }
-      }
-    }
-    strapiServicesPages {
-      packages {
-        title_ua
-        title_ru
-        title_en
-        list {
-          title_ua
-          title_ru
-          title_en
-        }
-      }
-    }
-    strapiContacts {
-      messengers {
-        messenger
-        link
-      }
-      email
-      feedBack {
-        title_ua
-        title_ru
-        title_en
-        image {
-          localFile {
-            childImageSharp {
-              gatsbyImageData(
-                layout: FULL_WIDTH
-                placeholder: BLURRED
-                formats: [AUTO, WEBP, AVIF]
-              )
-            }
-          }
-        }
-      }
-    }
+  query ServicesInner($language: String!) {
+    # query ServicesInner($language: String!, $id: String!) {
+    # strapiServices(id: { eq: $id }) {
+    #   seo_title_ua
+    #   seo_title_ru
+    #   seo_title_en
+    #   seo_description_ua
+    #   seo_description_ru
+    #   seo_description_en
+    #   title_ua
+    #   title_ru
+    #   title_en
+    #   slug
+    #   image {
+    #     localFile {
+    #       childImageSharp {
+    #         gatsbyImageData(
+    #           layout: FULL_WIDTH
+    #           placeholder: BLURRED
+    #           formats: [AUTO, WEBP, AVIF]
+    #         )
+    #       }
+    #     }
+    #   }
+    #   Gallery {
+    #     image {
+    #       localFile {
+    #         childImageSharp {
+    #           gatsbyImageData(
+    #             layout: FULL_WIDTH
+    #             placeholder: BLURRED
+    #             formats: [AUTO, WEBP, AVIF]
+    #           )
+    #         }
+    #       }
+    #     }
+    #   }
+    #   video
+    #   cover_image {
+    #     localFile {
+    #       childImageSharp {
+    #         gatsbyImageData(
+    #           layout: FULL_WIDTH
+    #           placeholder: BLURRED
+    #           formats: [AUTO, WEBP, AVIF]
+    #         )
+    #       }
+    #     }
+    #   }
+    #   about_style {
+    #     title_ua
+    #     title_ru
+    #     title_en
+    #     accordion {
+    #       id
+    #       title_ua
+    #       title_ru
+    #       title_en
+    #       content_ua
+    #       content_ru
+    #       content_en
+    #     }
+    #   }
+    #   packages {
+    #     title_ua
+    #     title_ru
+    #     title_en
+    #   }
+    #   projects {
+    #     title_ua
+    #     title_ru
+    #     title_en
+    #   }
+    #   portfolios {
+    #     id
+    #     project_name_ua
+    #     project_name_ru
+    #     project_name_en
+    #     project_number
+    #     slug
+    #     sub_title_ua
+    #     sub_title_ru
+    #     sub_title_en
+    #     main_image {
+    #       localFile {
+    #         childImageSharp {
+    #           gatsbyImageData(
+    #             layout: FULL_WIDTH
+    #             placeholder: BLURRED
+    #             formats: [AUTO, WEBP, AVIF]
+    #           )
+    #         }
+    #       }
+    #     }
+    #   }
+    # }
+    # strapiServicesPages {
+    #   packages {
+    #     title_ua
+    #     title_ru
+    #     title_en
+    #     list {
+    #       title_ua
+    #       title_ru
+    #       title_en
+    #     }
+    #   }
+    # }
+    # strapiContacts {
+    #   messengers {
+    #     messenger
+    #     link
+    #   }
+    #   email
+    #   feedBack {
+    #     title_ua
+    #     title_ru
+    #     title_en
+    #     image {
+    #       localFile {
+    #         childImageSharp {
+    #           gatsbyImageData(
+    #             layout: FULL_WIDTH
+    #             placeholder: BLURRED
+    #             formats: [AUTO, WEBP, AVIF]
+    #           )
+    #         }
+    #       }
+    #     }
+    #   }
+    # }
     locales: allLocale(filter: { language: { eq: $language } }) {
       edges {
         node {
