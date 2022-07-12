@@ -1,7 +1,7 @@
 import React from 'react';
 import { scroller } from 'react-scroll';
 import useLanguage from '../../../../../hooks/useLanguage';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 import {
   DefaultButtonHendler,
@@ -49,6 +49,6 @@ const HomeServicesFooter = React.forwardRef((props, ref) => {
   );
 });
 
-HomeServicesFooter.propTypes = {};
+// HomeServicesFooter.propTypes = {};
 
 export default HomeServicesFooter;

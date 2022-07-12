@@ -9,20 +9,20 @@ import Seo from '../components/Layout/seo';
 import HomeMain from '../components/Pages/Home/HomeMain/HomeMain';
 import HomeStory from '../components/Pages/Home/HomeStory/HomeStory';
 import Video from '../components/UI/Video/Video';
-import ServicePackages from '../components/UI/ServicePackages/ServicePackages';
+// import ServicePackages from '../components/UI/ServicePackages/ServicePackages';
 import Feedback from '../components/UI/Feedback/Feedback';
 import Quote from '../components/UI/Quote/Quote';
-import ServicesSection from '../components/UI/ServicesSection/ServicesSection';
+// import ServicesSection from '../components/UI/ServicesSection/ServicesSection';
 import CasesSlider from '../components/UI/CasesSlider/CasesSlider';
 import PortfolioMobile from '../components/Pages/Home/PortfolioMobile/PortfolioMobile';
 import Facts from '../components/UI/Facts/Facts';
 import HomeServices from '../components/Pages/Home/HomeServices/HomeServices';
 
-import servicesStatic from '../db/servicesStatic';
+// import servicesStatic from '../db/servicesStatic';
 import homeData from '../db/homeData';
 
 const IndexPage = ({ data }) => {
-  const staticServices = servicesStatic;
+  // const staticServices = servicesStatic;
 
   const dataHomePage = data.strapiHomes;
   const dataHomecontacts = data.strapiContacts;
