@@ -1,9 +1,9 @@
-import React from "react";
-import { graphql } from "gatsby";
-import useLanguage from "../hooks/useLanguage";
-import Layout from "../components/Layout/layout";
-import Seo from "../components/Layout/seo";
-import "../styles/style.sass";
+import React from 'react';
+import { graphql } from 'gatsby';
+import useLanguage from '../hooks/useLanguage';
+import Layout from '../components/Layout/layout';
+import Seo from '../components/Layout/seo';
+import '../styles/style.sass';
 
 import {
   ServicesInnerMain,
@@ -13,12 +13,12 @@ import {
   ServicesInnerProjects,
   Feedback,
   CrumbsNav,
-} from "../components/Pages/ServicesInner";
+} from '../components/Pages/ServicesInner';
 
 // import servicesInnerData from "../db/servicesInnerData";
 // import servicesData from "../db/servicesData";
 // import contactsData from "../db/contactsData";
-import servicesInnerStatic from "../db/servicesInnerStatic";
+import servicesInnerStatic from '../db/servicesInnerStatic';
 
 const ServicesInnerPage = ({ data }) => {
   const dataServices = data.strapiServices;
@@ -28,7 +28,7 @@ const ServicesInnerPage = ({ data }) => {
   return (
     <>
       <Layout>
-        <Seo
+        {/* <Seo
           title={useLanguage(
             dataServices.seo_title_ua,
             dataServices.seo_title_ru,
@@ -116,7 +116,7 @@ const ServicesInnerPage = ({ data }) => {
             dataServices.title_ru,
             dataServices.title_en
           )}
-        />
+        /> */}
       </Layout>
     </>
   );

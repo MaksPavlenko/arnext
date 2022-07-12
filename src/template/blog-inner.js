@@ -1,21 +1,21 @@
-import React from "react";
-import useLanguage from "../hooks/useLanguage";
-import Layout from "../components/Layout/layout";
-import Seo from "../components/Layout/seo";
+import React from 'react';
+import useLanguage from '../hooks/useLanguage';
+import Layout from '../components/Layout/layout';
+import Seo from '../components/Layout/seo';
 
-import { graphql } from "gatsby";
+import { graphql } from 'gatsby';
 
 // import articleData from "../db/articleData";
-import contactsData from "../db/contactsData";
-import { blogInnerStatic } from "../db/blogInnerStatic";
+import contactsData from '../db/contactsData';
+import { blogInnerStatic } from '../db/blogInnerStatic';
 
-import BlogInnerSlider from "../components/Pages/BlogInner/BlogInnerSlider/BlogInnerSlider";
-import BlogInnerMain from "../components/Pages/BlogInner/BlogInnerMain/BlogInnerMain";
-import BlogInnerFooter from "../components/Pages/BlogInner/BlogInnerFooter/BlogInnerFooter";
-import BlogInnerArticle from "../components/Pages/BlogInner/BlogInnerArticle/BlogInnerArticle";
-import CrumbsNav from "../components/UI/CrumbsNav/CrumbsNav";
+import BlogInnerSlider from '../components/Pages/BlogInner/BlogInnerSlider/BlogInnerSlider';
+import BlogInnerMain from '../components/Pages/BlogInner/BlogInnerMain/BlogInnerMain';
+import BlogInnerFooter from '../components/Pages/BlogInner/BlogInnerFooter/BlogInnerFooter';
+import BlogInnerArticle from '../components/Pages/BlogInner/BlogInnerArticle/BlogInnerArticle';
+import CrumbsNav from '../components/UI/CrumbsNav/CrumbsNav';
 
-import "../styles/style.sass";
+import '../styles/style.sass';
 
 const BlogInnerPage = ({ data, pageContext }) => {
   const langToggle = useLanguage;
@@ -25,7 +25,7 @@ const BlogInnerPage = ({ data, pageContext }) => {
   return (
     <>
       <Layout>
-        <Seo
+        {/* <Seo
           title={langToggle(
             dataBlog.seo_title_ua,
             dataBlog.seo_title_ru,
@@ -53,7 +53,7 @@ const BlogInnerPage = ({ data, pageContext }) => {
             dataBlog.title_en
           )}
           slug={"/blog/" + data.strapiBlogs.slug + "/"}
-        />
+        /> */}
       </Layout>
     </>
   );
@@ -77,7 +77,11 @@ export const query = graphql`
       image {
         localFile {
           childImageSharp {
-            gatsbyImageData(layout: FULL_WIDTH placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
+            gatsbyImageData(
+              layout: FULL_WIDTH
+              placeholder: BLURRED
+              formats: [AUTO, WEBP, AVIF]
+            )
           }
         }
       }
@@ -85,7 +89,11 @@ export const query = graphql`
         image {
           localFile {
             childImageSharp {
-              gatsbyImageData(layout: FULL_WIDTH placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
+              gatsbyImageData(
+                layout: FULL_WIDTH
+                placeholder: BLURRED
+                formats: [AUTO, WEBP, AVIF]
+              )
             }
           }
         }

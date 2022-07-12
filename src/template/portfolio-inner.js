@@ -1,21 +1,20 @@
-import React from "react";
-import useLanguage from "../hooks/useLanguage";
-import Layout from "../components/Layout/layout";
-import Seo from "../components/Layout/seo";
-import { graphql } from "gatsby";
+import React from 'react';
+import useLanguage from '../hooks/useLanguage';
+import Layout from '../components/Layout/layout';
+import Seo from '../components/Layout/seo';
+import { graphql } from 'gatsby';
 
-import "../styles/style.sass";
+import '../styles/style.sass';
 
 // import portfolioInnerData from "../db/portfolioInnerData";
-import { PortfolioInnerStatic } from "../db/portfolioInnerStatic";
+import { PortfolioInnerStatic } from '../db/portfolioInnerStatic';
 
-import PortfolioDescription from "../components/Pages/PortfolioInner/PortfolioDescription/PortfolioDescription";
-import PortfolioMain from "../components/Pages/PortfolioInner/PortfolioMain/PortfolioMain";
-import CrumbsNav from "../components/UI/CrumbsNav/CrumbsNav";
-import PortfolioInnerProjects from "../components/Pages/PortfolioInner/PortfolioInnerProjects/PortfolioInnerProjects";
+import PortfolioDescription from '../components/Pages/PortfolioInner/PortfolioDescription/PortfolioDescription';
+import PortfolioMain from '../components/Pages/PortfolioInner/PortfolioMain/PortfolioMain';
+import CrumbsNav from '../components/UI/CrumbsNav/CrumbsNav';
+import PortfolioInnerProjects from '../components/Pages/PortfolioInner/PortfolioInnerProjects/PortfolioInnerProjects';
 
 const PortfolioInnerPage = ({ data, pageContext }) => {
-  
   const portfolio = data.strapiPortfolio;
   // const dataPortfolio = portfolioInnerData;
   // const dataFeature = portfolioInnerData.feature; // * Просто сокращение к объекту
@@ -23,7 +22,7 @@ const PortfolioInnerPage = ({ data, pageContext }) => {
   return (
     <>
       <Layout>
-        <Seo
+        {/* <Seo
           title={useLanguage(
             portfolio.Seo_title_ua,
             portfolio.Seo_title_ru,
@@ -75,7 +74,7 @@ const PortfolioInnerPage = ({ data, pageContext }) => {
             portfolio.project_name_en
           )}
           slug={"/pf/" + portfolio.slug + "/"}
-        />
+        /> */}
       </Layout>
     </>
   );

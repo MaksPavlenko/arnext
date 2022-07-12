@@ -1,17 +1,17 @@
-import React from "react";
-import { graphql } from "gatsby";
+import React from 'react';
+import { graphql } from 'gatsby';
 
-import useLanguage from "../hooks/useLanguage";
-import Layout from "../components/Layout/layout";
-import Seo from "../components/Layout/seo";
-import "../styles/style.sass";
+import useLanguage from '../hooks/useLanguage';
+import Layout from '../components/Layout/layout';
+import Seo from '../components/Layout/seo';
+import '../styles/style.sass';
 
-import { blogStatic } from "../db/blogStatic";
+import { blogStatic } from '../db/blogStatic';
 
-import BlogTopArticle from "../components/Pages/Blog/BlogTopArticle/BlogTopArticle";
+import BlogTopArticle from '../components/Pages/Blog/BlogTopArticle/BlogTopArticle';
 
-import BlogArticles from "../components/Pages/Blog/BlogArticles/BlogArticles";
-import CrumbsNav from "../components/UI/CrumbsNav/CrumbsNav";
+import BlogArticles from '../components/Pages/Blog/BlogArticles/BlogArticles';
+import CrumbsNav from '../components/UI/CrumbsNav/CrumbsNav';
 
 const BlogPage = ({ data }) => {
   const blogData = data.allStrapiBlogs.nodes;
@@ -20,8 +20,8 @@ const BlogPage = ({ data }) => {
   return (
     <>
       <Layout>
-        <Seo title={langToggle("Блог", "Блог", "Blog")} />
-        <BlogTopArticle
+        <Seo title={langToggle('Блог', 'Блог', 'Blog')} />
+        {/* <BlogTopArticle
           topArticle={blogData}
           subTitle={langToggle("Блог", "Блог", "Blog")}
           title={langToggle(
@@ -31,7 +31,7 @@ const BlogPage = ({ data }) => {
           )}
         />
         <BlogArticles articles={blogData} />
-        <CrumbsNav crumbsNav={blogStatic.crumbsNav} />
+        <CrumbsNav crumbsNav={blogStatic.crumbsNav} /> */}
       </Layout>
     </>
   );

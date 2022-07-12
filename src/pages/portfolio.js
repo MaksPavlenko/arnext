@@ -1,21 +1,20 @@
-import React from "react";
-import useLanguage from "../hooks/useLanguage";
-import Layout from "../components/Layout/layout";
-import { graphql } from "gatsby";
-import Seo from "../components/Layout/seo";
-import "../styles/style.sass";
-import { Portfolio, CrumbsNav } from "../components/Pages/Portfolio";
-import { portfolioStatic } from "../db/portfolioStatic";
+import React from 'react';
+import useLanguage from '../hooks/useLanguage';
+import Layout from '../components/Layout/layout';
+import { graphql } from 'gatsby';
+import Seo from '../components/Layout/seo';
+import '../styles/style.sass';
+import { Portfolio, CrumbsNav } from '../components/Pages/Portfolio';
+import { portfolioStatic } from '../db/portfolioStatic';
 
 const PortfolioPage = ({ data }) => {
- 
   const langToggle = useLanguage;
 
   return (
     <>
       <Layout>
-        <Seo title={langToggle("Портфоліо", "Портфолио", "Portfolio")} />
-        <Portfolio
+        <Seo title={langToggle('Портфоліо', 'Портфолио', 'Portfolio')} />
+        {/* <Portfolio
           subTitle={useLanguage("Портфоліо", "Портфолио", "Portfolio")}
           title={useLanguage(
             "Поєднання різних \nнапрямків та матеріалів",
@@ -24,7 +23,7 @@ const PortfolioPage = ({ data }) => {
           )}
           gallery={data.allStrapiPortfolio.nodes}
         />
-        <CrumbsNav crumbsNav={portfolioStatic.crumbsNav} />
+        <CrumbsNav crumbsNav={portfolioStatic.crumbsNav} /> */}
       </Layout>
     </>
   );
