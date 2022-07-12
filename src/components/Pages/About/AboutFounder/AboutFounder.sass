@@ -1,0 +1,45 @@
+.founder__container
+  display: grid
+  grid-template-columns: 1fr 1fr
+  grid-column-gap: 100px
+  +media-breakpoint-down(md)
+    grid-template-columns: 1fr
+    grid-row-gap: 40px
+
+.founder__image-wrapper
+  position: relative
+  overflow: hidden
+
+.founder__image
+  height: 100%
+
+.founder__wrapper
+  padding: 0 100px
+  +media-breakpoint-down(md)
+    padding: 0
+.founder__content
+  padding: 100px 0
+  +media-breakpoint-down(md)
+    padding: 0 6vw
+
+.founder__title
+  font-size: 28px
+  line-height: 50px
+  color: $black
+  font-weight: 600
+  margin-bottom: 100px
+  white-space: pre-line
+  +media-breakpoint-down(md)
+    margin-bottom: 40px
+    font-size: 24px
+    line-height: 40px
+    white-space: normal
+
+.founder__description
+  font-size: 18px
+  line-height: 40px
+  color: $black
+  font-weight: 500
+  +media-breakpoint-down(md)
+    font-size: 16px
+    line-height: 30px
