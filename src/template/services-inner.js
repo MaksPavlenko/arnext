@@ -1,6 +1,10 @@
 import React from 'react';
 import { graphql } from 'gatsby';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import useLanguage from '../hooks/useLanguage';
+import { useBreakpoint } from 'gatsby-plugin-breakpoints';
+
 import Layout from '../components/Layout/layout';
 import Seo from '../components/Layout/seo';
 import '../styles/style.sass';
@@ -9,21 +13,81 @@ import {
   ServicesInnerMain,
   ServicesInnerAboutStyle,
   Video,
-  ServicePackages,
+  // ServicePackages,
   ServicesInnerProjects,
   Feedback,
   CrumbsNav,
 } from '../components/Pages/ServicesInner';
-
-// import servicesInnerData from "../db/servicesInnerData";
-// import servicesData from "../db/servicesData";
-// import contactsData from "../db/contactsData";
 import servicesInnerStatic from '../db/servicesInnerStatic';
+import homeData from '../db/homeData';
+import HomeServices from '../components/Pages/Home/HomeServices/HomeServices';
+import PortfolioMobile from '../components/Pages/Home/PortfolioMobile/PortfolioMobile';
 
 const ServicesInnerPage = ({ data }) => {
   const dataServices = data.strapiServices;
-
+  const breakpoints = useBreakpoint();
   const langToggle = useLanguage;
+
+  let fadeY = React.useRef([]);
+  fadeY.current = [];
+
+  let fadeOverlay = React.useRef([]);
+  fadeOverlay.current = [];
+
+  React.useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    fadeY.current.forEach((el) => {
+      gsap.fromTo(
+        el,
+        {
+          opacity: 0,
+          y: 140,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          delay: 0.25,
+          scrollTrigger: {
+            trigger: el,
+            start: 'top bottom',
+            toggleActions: 'play none none reverse',
+          },
+        }
+      );
+    });
+    fadeOverlay.current.forEach((el) => {
+      gsap.fromTo(
+        el,
+        { y: 0 },
+        {
+          y: '-100%',
+          duration: 1.5,
+          scrollTrigger: {
+            trigger: el,
+            start: 'top bottom',
+            toggleActions: 'play none none reverse',
+          },
+        }
+      );
+    });
+  }, []);
+
+  const fadeYRefs = (el) => {
+    if (el && !fadeY.current.includes(el)) {
+      fadeY.current.push(el);
+    }
+  };
+
+  const fadeOverlayRefs = (el) => {
+    if (el && !fadeOverlay.current.includes(el)) {
+      fadeOverlay.current.push(el);
+    }
+  };
+
+  function refreshFunc() {
+    ScrollTrigger.refresh(true);
+  }
 
   return (
     <>
@@ -58,11 +122,28 @@ const ServicesInnerPage = ({ data }) => {
             dataServices.about_style.title_en
           )}
           items={dataServices.about_style.accordion}
+          refreshFunc={refreshFunc}
+          ref={fadeYRefs}
         />
         {dataServices.video ? (
           <Video cover={dataServices.cover_image} url={dataServices.video} />
         ) : null}
-        <ServicePackages
+        <HomeServices
+          services={homeData.services}
+          markerCount={'03'}
+          markerTitle={langToggle(
+            homeData.services.marker_ua,
+            homeData.services.marker_ru,
+            homeData.services.marker_en
+          )}
+          sectionTitle={langToggle(
+            homeData.services.title_ua,
+            homeData.services.title_ru,
+            homeData.services.title_en
+          )}
+          ref={fadeYRefs}
+        />
+        {/* <ServicePackages
           markerCount={'03'}
           markerTitle={useLanguage(
             'пакети послуг',
@@ -75,22 +156,49 @@ const ServicesInnerPage = ({ data }) => {
             dataServices.packages.title_en
           )}
           dataServices={data.strapiServicesPages.packages}
-        />
+        /> */}
         {dataServices.portfolios.length === 0 ? null : (
-          <ServicesInnerProjects
-            markerCount={'04'}
-            markerTitle={langToggle(
-              'Каталог проектів',
-              'Каталог проектов',
-              'Project catalog'
+          // <ServicesInnerProjects
+          //   markerCount={'04'}
+          //   markerTitle={langToggle(
+          //     'Каталог проектів',
+          //     'Каталог проектов',
+          //     'Project catalog'
+          //   )}
+          //   sectionTitle={langToggle(
+          //     dataServices.projects.title_ua,
+          //     dataServices.projects.title_ru,
+          //     dataServices.projects.title_en
+          //   )}
+          //   dataCatalog={dataServices.portfolios}
+          // />
+          <>
+            {breakpoints.sm ? (
+              <PortfolioMobile
+                sectionTitle={langToggle(
+                  dataServices.projects.title_ua,
+                  dataServices.projects.title_ru,
+                  dataServices.projects.title_en
+                )}
+                dataPortfolio={dataServices.portfolios}
+              />
+            ) : (
+              <ServicesInnerProjects
+                markerCount={'04'}
+                markerTitle={langToggle(
+                  'Каталог проектів',
+                  'Каталог проектов',
+                  'Project catalog'
+                )}
+                sectionTitle={langToggle(
+                  dataServices.projects.title_ua,
+                  dataServices.projects.title_ru,
+                  dataServices.projects.title_en
+                )}
+                dataCatalog={dataServices.portfolios}
+              />
             )}
-            sectionTitle={langToggle(
-              dataServices.projects.title_ua,
-              dataServices.projects.title_ru,
-              dataServices.projects.title_en
-            )}
-            dataCatalog={dataServices.portfolios}
-          />
+          </>
         )}
 
         <Feedback
@@ -107,6 +215,10 @@ const ServicesInnerPage = ({ data }) => {
           )}
           dataContacts={data.strapiContacts}
           imageContact={data.strapiContacts.feedBack.image}
+          ref={{
+            fadeY: fadeYRefs,
+            fadeOver: fadeOverlayRefs,
+          }}
         />
         <CrumbsNav
           crumbsNav={servicesInnerStatic.crumbsNav}
@@ -116,6 +228,7 @@ const ServicesInnerPage = ({ data }) => {
             dataServices.title_ru,
             dataServices.title_en
           )}
+          ref={fadeYRefs}
         />
       </Layout>
     </>

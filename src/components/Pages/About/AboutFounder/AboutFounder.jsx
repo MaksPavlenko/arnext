@@ -1,84 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { GatsbyImage, getImage } from "gatsby-plugin-image";
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import useLanguage from '../../../../hooks/useLanguage';
 
-const AboutFounder = ({ founderImage, founder }) => {
-  const image = getImage(founderImage.localFile)
-  let overlayEl = React.useRef(null);
-  let itemEl = React.useRef([]);
-  itemEl.current = [];
-
-  React.useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
-    gsap.fromTo(
-      overlayEl,
-      { y: 0 },
-      {
-        y: '-100%',
-        duration: 1.2,
-        scrollTrigger: {
-          trigger: overlayEl,
-          start: 'center bottom',
-          end: 'center bottom',
-          toggleActions: 'play none none reverse',
-        },
-      }
-    );
-
-    itemEl.current.forEach((el, index) => {
-      gsap.fromTo(
-        el,
-        {
-          opacity: 0,
-          y: 100,
-        },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1.2,
-          delay: 0.3,
-          scrollTrigger: {
-            trigger: el,
-            start: 'top bottom',
-            toggleActions: 'play none none reverse',
-          },
-        }
-      );
-    });
-  }, []);
-
-  const addToRefs = (el) => {
-    if (el && !itemEl.current.includes(el)) {
-      itemEl.current.push(el);
-    }
-  };
+const AboutFounder = React.forwardRef((props, ref) => {
+  const { founderImage, founder } = props;
+  const { fadeY, fadeOver } = ref;
+  const image = getImage(founderImage.localFile);
 
   return (
-    <section className="founder">
+    <section className="founder default-section">
       <div className="founder__wrapper">
         <div className="founder__container">
           <div className="founder__image-wrapper">
-            <div className="animate-overlay" ref={(e) => (overlayEl = e)}></div>
+            <div className="animate-overlay" ref={fadeOver}></div>
             <GatsbyImage
-            image={image}
-            className="founder__image"
-            alt={founder.title_ru}
-          />
-           
+              image={image}
+              className="founder__image"
+              alt={founder.title_ru}
+            />
           </div>
           <div className="founder__content">
-            <h2 className="founder__title" ref={addToRefs}>
+            <h2 className="founder__title" ref={fadeY}>
               {useLanguage(
                 founder.title_ua,
                 founder.title_ru,
                 founder.title_en
               )}
             </h2>
-            <p className="founder__description" ref={addToRefs}>
+            <p className="founder__description" ref={fadeY}>
               {useLanguage(
                 founder.description_ua,
                 founder.description_ru,
@@ -90,7 +40,7 @@ const AboutFounder = ({ founderImage, founder }) => {
       </div>
     </section>
   );
-};
+});
 
 AboutFounder.propTypes = {
   image: PropTypes.object,

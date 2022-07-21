@@ -1,23 +1,57 @@
 import React from 'react';
 import useLanguage from '../hooks/useLanguage';
-import Layout from '../components/Layout/layout';
-import Seo from '../components/Layout/seo';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { graphql } from 'gatsby';
 
+import Layout from '../components/Layout/layout';
+import Seo from '../components/Layout/seo';
 import '../styles/style.sass';
 
-// import portfolioInnerData from "../db/portfolioInnerData";
 import { PortfolioInnerStatic } from '../db/portfolioInnerStatic';
-
-import PortfolioDescription from '../components/Pages/PortfolioInner/PortfolioDescription/PortfolioDescription';
 import PortfolioMain from '../components/Pages/PortfolioInner/PortfolioMain/PortfolioMain';
 import CrumbsNav from '../components/UI/CrumbsNav/CrumbsNav';
 import PortfolioInnerProjects from '../components/Pages/PortfolioInner/PortfolioInnerProjects/PortfolioInnerProjects';
+import CaseInfo from '../components/Pages/PortfolioInner/CaseInfo/CaseInfo';
 
 const PortfolioInnerPage = ({ data, pageContext }) => {
   const portfolio = data.strapiPortfolio;
-  // const dataPortfolio = portfolioInnerData;
-  // const dataFeature = portfolioInnerData.feature; // * Просто сокращение к объекту
+  let fadeY = React.useRef([]);
+  fadeY.current = [];
+
+  React.useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    fadeY.current.forEach((el) => {
+      gsap.fromTo(
+        el,
+        {
+          opacity: 0,
+          y: 140,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          delay: 0.25,
+          scrollTrigger: {
+            trigger: el,
+            start: 'top bottom',
+            toggleActions: 'play none none reverse',
+          },
+        }
+      );
+    });
+  }, []);
+
+  const fadeYRefs = (el) => {
+    if (el && !fadeY.current.includes(el)) {
+      fadeY.current.push(el);
+    }
+  };
+
+  function refreshFunc() {
+    ScrollTrigger.refresh(true);
+  }
 
   return (
     <>
@@ -48,7 +82,7 @@ const PortfolioInnerPage = ({ data, pageContext }) => {
           projectNumber={portfolio.project_number}
           images={portfolio.main_image}
         />
-        <PortfolioDescription
+        {/* <PortfolioDescription
           dataFeature={portfolio.project_description}
           projectNumber={portfolio.project_number}
           titleNumber={'01.'}
@@ -62,11 +96,25 @@ const PortfolioInnerPage = ({ data, pageContext }) => {
             portfolio.description_ru,
             portfolio.description_en
           )}
+        /> */}
+
+        <CaseInfo
+          info={portfolio.project_description}
+          about={useLanguage(
+            portfolio.description_ua,
+            portfolio.description_ru,
+            portfolio.description_en
+          )}
+          number={portfolio.project_number}
+          ref={fadeYRefs}
+          refreshFunc={refreshFunc}
         />
 
         <PortfolioInnerProjects
           portfolio={portfolio.gallery}
           pageContext={pageContext}
+          ref={fadeYRefs}
+          refreshFunc={refreshFunc}
         />
 
         <CrumbsNav
@@ -77,6 +125,7 @@ const PortfolioInnerPage = ({ data, pageContext }) => {
             portfolio.project_name_en
           )}
           slug={'/pf/' + portfolio.slug + '/'}
+          ref={fadeYRefs}
         />
       </Layout>
     </>

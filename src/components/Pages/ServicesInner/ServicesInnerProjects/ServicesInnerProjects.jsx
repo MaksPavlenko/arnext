@@ -1,7 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
-import SectionHeader from "../../../UI/SectionHeader/SectionHeader";
-import ProjectSlider from "./ProjectSlider/ProjectSlider";
+import React from 'react';
+import PropTypes from 'prop-types';
+import SectionHeader from '../../../UI/SectionHeader/SectionHeader';
+import ProjectSlider from './ProjectSlider/ProjectSlider';
 
 const ServicesInnerProjects = ({
   markerCount,
@@ -9,9 +9,8 @@ const ServicesInnerProjects = ({
   sectionTitle,
   dataCatalog,
 }) => {
-
   return (
-    <section className="services-inner__projects">
+    <section className="services-inner__projects default-section">
       <div className="section-wrapper">
         <SectionHeader
           markerCount={markerCount}

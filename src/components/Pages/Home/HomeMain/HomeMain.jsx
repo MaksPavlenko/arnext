@@ -1,6 +1,7 @@
 import React from 'react';
 import { gsap } from 'gsap';
-import MediaQuery from 'react-responsive';
+// import MediaQuery from 'react-responsive';
+import { useBreakpoint } from 'gatsby-plugin-breakpoints';
 import useLanguage from '../../../../hooks/useLanguage';
 
 import MainSlider from './MainSlider/MainSlider';
@@ -8,6 +9,7 @@ import HomeMainMobile from './HomeMainMobile/HomeMainMobile';
 
 const HomeMain = ({ dataMain, dataSlider }) => {
   const langToggle = useLanguage;
+  const breakpoints = useBreakpoint();
 
   let titleEl = React.useRef(null);
 
@@ -36,12 +38,17 @@ const HomeMain = ({ dataMain, dataSlider }) => {
             )}
           </h1>
         </header>
-        <MediaQuery minWidth={768}>
+        {breakpoints.sm ? (
+          <HomeMainMobile dataSlider={dataSlider} />
+        ) : (
+          <MainSlider dataSlider={dataSlider} />
+        )}
+        {/* <MediaQuery minWidth={768}>
           <MainSlider dataSlider={dataSlider} />
         </MediaQuery>
         <MediaQuery maxWidth={767}>
           <HomeMainMobile dataSlider={dataSlider} />
-        </MediaQuery>
+        </MediaQuery> */}
       </section>
     </>
   );

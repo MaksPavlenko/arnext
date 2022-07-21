@@ -1,19 +1,15 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-// import { useMediaQuery } from 'react-responsive';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useBreakpoint } from 'gatsby-plugin-breakpoints';
 import useLanguage from '../../../../hooks/useLanguage';
 
 import ButtonLink from '../../../UI/ButtonLink/ButtonLink';
 import SectionHeader from '../../../UI/SectionHeader/SectionHeader';
-import {
-  MediaMaxWidth,
-  MediaMinWidh,
-} from '../../../UI/MadiaQueryWrapper/MadiaQueryWrapper';
 
-const HomeStory = ({ dataStory, storyImage }) => {
+const HomeStory = React.forwardRef((props, ref) => {
+  const { dataStory, storyImage } = props;
+  const { fadeY, fadeOver } = ref;
   const data = useStaticQuery(graphql`
     query {
       portraitCover: file(relativePath: { eq: "about_portrait.jpeg" }) {
@@ -39,68 +35,15 @@ const HomeStory = ({ dataStory, storyImage }) => {
     }
   `);
 
-  // const isDesktop = useMediaQuery({ minWidth: 768 });
-  // const image = getImage(storyImage.localFile);
+  const breakpoints = useBreakpoint();
 
-  // const image = getImage(
-  //   isDesktop
-  //     ? data.portraitCover.childImageSharp
-  //     : data.landscapeCover.childImageSharp
-  // );
-
-  const imageMd = getImage(data.portraitCover.childImageSharp);
-  const imageSm = getImage(data.landscapeCover.childImageSharp);
+  const image = getImage(
+    breakpoints.md
+      ? data.landscapeCover.childImageSharp
+      : data.portraitCover.childImageSharp
+  );
 
   const langToggle = useLanguage;
-
-  let overlayEl = React.useRef(null);
-  let itemEl = React.useRef([]);
-  itemEl.current = [];
-
-  React.useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
-    itemEl.current.forEach((el, index) => {
-      gsap.fromTo(
-        el,
-        {
-          opacity: 0,
-          y: 100,
-        },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1.2,
-          delay: 0.3,
-          scrollTrigger: {
-            trigger: el,
-            start: 'top bottom',
-            toggleActions: 'play none none reverse',
-          },
-        }
-      );
-    });
-    gsap.fromTo(
-      overlayEl,
-      { y: 0 },
-      {
-        y: '-100%',
-        duration: 1.5,
-        scrollTrigger: {
-          trigger: overlayEl,
-          start: 'center bottom',
-          end: 'center bottom',
-          toggleActions: 'play none none reverse',
-        },
-      }
-    );
-  }, []);
-
-  const addToRefs = (el) => {
-    if (el && !itemEl.current.includes(el)) {
-      itemEl.current.push(el);
-    }
-  };
 
   return (
     <section className="home-story">
@@ -114,16 +57,17 @@ const HomeStory = ({ dataStory, storyImage }) => {
               dataStory.title_ru,
               dataStory.title_en
             )}
+            ref={fadeY}
           />
 
-          <p className="story-item--text" ref={addToRefs}>
+          <p className="story-item--text" ref={fadeY}>
             {langToggle(
               dataStory.text_ua,
               dataStory.text_ru,
               dataStory.text_en
             )}
           </p>
-          <div className="btn-wrapper" ref={addToRefs}>
+          <div className="btn-wrapper" ref={fadeY}>
             <ButtonLink
               to={'/about/'}
               title={langToggle(
@@ -137,34 +81,17 @@ const HomeStory = ({ dataStory, storyImage }) => {
       </div>
 
       <div className="story-item story-item--2">
-        <div className="animate-overlay" ref={(e) => (overlayEl = e)}></div>
-        <MediaMaxWidth>
+        <div className="animate-overlay" ref={fadeOver}></div>
+        {image && (
           <GatsbyImage
-            image={imageSm}
-            className="story-item--image story-item--image__sm"
-            alt={dataStory.title_ru}
-          />
-        </MediaMaxWidth>
-        <MediaMinWidh>
-          <GatsbyImage
-            image={imageMd}
+            image={image}
             className="story-item--image story-item--image__md"
             alt={dataStory.title_ru}
           />
-        </MediaMinWidh>
-        {/* <GatsbyImage
-          image={imageMd}
-          className="story-item--image story-item--image__md"
-          alt={dataStory.title_ru}
-        />
-        <GatsbyImage
-          image={imageSm}
-          className="story-item--image story-item--image__sm"
-          alt={dataStory.title_ru}
-        /> */}
+        )}
       </div>
     </section>
   );
-};
+});
 
 export default HomeStory;

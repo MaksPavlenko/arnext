@@ -1,16 +1,16 @@
-import React from "react";
-import { GatsbyImage, getImage } from "gatsby-plugin-image";
-import PropTypes from "prop-types";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import React from 'react';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+import PropTypes from 'prop-types';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-import MainScreenHeader from "../../../UI/MainScreenHeader/MainScreenHeader";
+import MainScreenHeader from '../../../UI/MainScreenHeader/MainScreenHeader';
 
 const ServicesMain = ({ subTitle, title, intro, mainImage }) => {
   const image = getImage(mainImage.image.localFile);
   let overlayEl = React.useRef(null);
   let imageEl = React.useRef(null);
-  let itemEl = React.useRef(null);
+  // let itemEl = React.useRef(null);
 
   React.useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -19,7 +19,7 @@ const ServicesMain = ({ subTitle, title, intro, mainImage }) => {
       overlayEl,
       { y: 0 },
       {
-        y: "-100%",
+        y: '-100%',
         duration: 1.2,
         delay: 0.4,
       }
@@ -33,21 +33,21 @@ const ServicesMain = ({ subTitle, title, intro, mainImage }) => {
         delay: 0.4,
       }
     );
-    gsap.fromTo(
-      itemEl,
-      { opacity: 0, y: 140 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1.5,
-        delay: 0.4,
-        scrollTrigger: {
-          trigger: itemEl,
-          start: "top bottom",
-          toggleActions: "play none none reverse",
-        },
-      }
-    );
+    // gsap.fromTo(
+    //   itemEl,
+    //   { opacity: 0, y: 140 },
+    //   {
+    //     opacity: 1,
+    //     y: 0,
+    //     duration: 1.5,
+    //     delay: 0.4,
+    //     scrollTrigger: {
+    //       trigger: itemEl,
+    //       start: 'top bottom',
+    //       toggleActions: 'play none none reverse',
+    //     },
+    //   }
+    // );
   }, []);
 
   return (
@@ -58,9 +58,12 @@ const ServicesMain = ({ subTitle, title, intro, mainImage }) => {
       <div className="services__main-cover">
         <div
           className="services__main-cover__overlay"
-          ref={e => (overlayEl = e)}
+          ref={(e) => (overlayEl = e)}
         ></div>
-        <div className="services__main-cover__wrapper" ref={e => (imageEl = e)}>
+        <div
+          className="services__main-cover__wrapper"
+          ref={(e) => (imageEl = e)}
+        >
           <GatsbyImage
             image={image}
             className="services__main-cover__image"
@@ -68,7 +71,7 @@ const ServicesMain = ({ subTitle, title, intro, mainImage }) => {
           />
         </div>
       </div>
-      <div className="services__main-intro">
+      {/* <div className="services__main-intro">
         <div className="services__main-intro__wrapper">
           <p
             className="services__main-intro__description"
@@ -77,7 +80,7 @@ const ServicesMain = ({ subTitle, title, intro, mainImage }) => {
             {intro}
           </p>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 };

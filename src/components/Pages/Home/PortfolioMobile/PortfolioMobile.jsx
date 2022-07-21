@@ -1,39 +1,36 @@
 import React from 'react';
+import useLanguage from '../../../../hooks/useLanguage';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import useLanguage from '../../../../hooks/useLanguage';
 
 import { DefaulSlideLink } from '../../../UI/DefaulSlide/ DefaulSlide';
 import DefaultSlider from '../../../UI/DefaultSlider/DefaultSlider';
 import { DefaultButtonLink } from '../../../UI/DefaultButtons/DefaultButtons';
-
 import { fromPortfolioSlugToUrl } from '../../../../utils/slug';
 
 import Arrow from '../../../../svg/arrow_link.svg';
 
-// import { Link } from 'gatsby-plugin-react-i18next';
-// import PropTypes from 'prop-types';
-
-const PortfolioMobile = ({ sectionTitle, dataPortfolio }) => {
+const PortfolioMobile = React.forwardRef((props, ref) => {
+  const { sectionTitle, dataPortfolio } = props;
   const langToggle = useLanguage;
 
-  let itemEl = React.useRef([]);
-  itemEl.current = [];
+  let fadeY = React.useRef([]);
+  fadeY.current = [];
 
   React.useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
-
-    itemEl.current.forEach((el) => {
+    fadeY.current.forEach((el) => {
       gsap.fromTo(
         el,
         {
           opacity: 0,
-          y: 100,
+          y: 140,
         },
         {
           opacity: 1,
           y: 0,
           duration: 1,
+          delay: 0.25,
           scrollTrigger: {
             trigger: el,
             start: 'top bottom',
@@ -44,21 +41,21 @@ const PortfolioMobile = ({ sectionTitle, dataPortfolio }) => {
     });
   }, []);
 
-  const addToRefs = (el) => {
-    if (el && !itemEl.current.includes(el)) {
-      itemEl.current.push(el);
+  const fadeYRefs = (el) => {
+    if (el && !fadeY.current.includes(el)) {
+      fadeY.current.push(el);
     }
   };
 
   return (
     <section className="mobile-portfolio home-cases cases-section">
       <header className="section-header section-header__mobile---portfolio">
-        <h2 className="section-header__title" ref={addToRefs}>
+        <h2 className="section-header__title" ref={fadeYRefs}>
           {sectionTitle}
         </h2>
       </header>
 
-      <DefaultSlider ref={addToRefs}>
+      <DefaultSlider ref={fadeYRefs}>
         {dataPortfolio.map((item, index) => {
           return (
             <DefaulSlideLink
@@ -81,7 +78,7 @@ const PortfolioMobile = ({ sectionTitle, dataPortfolio }) => {
         })}
       </DefaultSlider>
       <div className="section-wrapper">
-        <div className="mobile-portfolio__button--wrapper" ref={addToRefs}>
+        <div className="mobile-portfolio__button--wrapper" ref={fadeYRefs}>
           <DefaultButtonLink
             link={'/portfolio/'}
             title={langToggle(
@@ -96,8 +93,6 @@ const PortfolioMobile = ({ sectionTitle, dataPortfolio }) => {
       </div>
     </section>
   );
-};
-
-// PortfolioMobile.propTypes = {};
+});
 
 export default PortfolioMobile;

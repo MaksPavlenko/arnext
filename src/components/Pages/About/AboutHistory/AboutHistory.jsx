@@ -1,58 +1,25 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const ReactMarkdown = require("react-markdown");
+const ReactMarkdown = require('react-markdown');
 
-const AboutHistory = ({ markerCount, markerTitle, description }) => {
-  let itemEl = React.useRef([]);
-  itemEl.current = [];
+const AboutHistory = React.forwardRef((props, ref) => {
+  const { markerCount, markerTitle, description } = props;
 
-  React.useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
-    itemEl.current.forEach((el, index) => {
-      gsap.fromTo(
-        el,
-        {
-          opacity: 0,
-          y: 100,
-        },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1.2,
-          delay: 0.3,
-          scrollTrigger: {
-            trigger: el,
-            start: "top bottom",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-    });
-  }, []);
-
-  const addToRefs = el => {
-    if (el && !itemEl.current.includes(el)) {
-      itemEl.current.push(el);
-    }
-  };
   return (
-    <section className="story">
+    <section className="story default-section">
       <div className="story__wrapper">
-        <p className="story__marker" ref={addToRefs}>
+        <p className="story__marker" ref={ref}>
           <span className="story__count">{markerCount}</span>
           {markerTitle}
         </p>
-        <div className="markdown-components" ref={addToRefs}>
+        <div className="markdown-components" ref={ref}>
           <ReactMarkdown children={description} />
         </div>
       </div>
     </section>
   );
-};
+});
 
 AboutHistory.propTypes = {
   markerCount: PropTypes.string,

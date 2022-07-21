@@ -53,3 +53,12 @@ export const DefaultButtonLink = ({ children, link, title }) => {
     </Link>
   );
 };
+
+export const DefaultPlus = ({ cls }) => {
+  return (
+    <span className={`accordion-icon ${cls ? cls : null}`}>
+      <span className="icon-line icon-line__1"></span>
+      <span className="icon-line icon-line__2"></span>
+    </span>
+  );
+};

@@ -1,63 +1,24 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import SectionHeader from "../../../UI/SectionHeader/SectionHeader";
+import SectionHeader from '../../../UI/SectionHeader/SectionHeader';
+const ReactMarkdown = require('react-markdown');
 
-const ReactMarkdown = require("react-markdown");
-
-const AboutPhilosophy = ({
-  markerCount,
-  markerTitle,
-  sectionTitle,
-  description,
-}) => {
-  let itemEl = React.useRef([]);
-  itemEl.current = [];
-
-  React.useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
-    itemEl.current.forEach((el, index) => {
-      gsap.fromTo(
-        el,
-        {
-          opacity: 0,
-          y: 100,
-        },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1.2,
-          delay: 0.5,
-          scrollTrigger: {
-            trigger: el,
-            start: "top bottom",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-    });
-  }, []);
-
-  const addToRefs = el => {
-    if (el && !itemEl.current.includes(el)) {
-      itemEl.current.push(el);
-    }
-  };
+const AboutPhilosophy = React.forwardRef((props, ref) => {
+  const { markerCount, markerTitle, sectionTitle, description } = props;
 
   return (
-    <section className="philosophy">
+    <section className="philosophy default-section">
       <div className="about-us__wrapper">
         <div className="philosophy__container">
           <SectionHeader
             markerCount={markerCount}
             markerTitle={markerTitle}
             sectionTitle={sectionTitle}
+            ref={ref}
           />
           <div className="philosophy__content">
-            <div className="markdown-components" ref={addToRefs}>
+            <div className="markdown-components" ref={ref}>
               <ReactMarkdown children={description} />
             </div>
           </div>
@@ -65,7 +26,7 @@ const AboutPhilosophy = ({
       </div>
     </section>
   );
-};
+});
 
 AboutPhilosophy.propTypes = {
   markerCount: PropTypes.string,

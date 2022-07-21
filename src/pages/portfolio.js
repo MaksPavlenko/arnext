@@ -1,7 +1,10 @@
 import React from 'react';
 import useLanguage from '../hooks/useLanguage';
-import Layout from '../components/Layout/layout';
 import { graphql } from 'gatsby';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+import Layout from '../components/Layout/layout';
 import Seo from '../components/Layout/seo';
 import '../styles/style.sass';
 import { Portfolio, CrumbsNav } from '../components/Pages/Portfolio';
@@ -9,6 +12,42 @@ import { portfolioStatic } from '../db/portfolioStatic';
 
 const PortfolioPage = ({ data }) => {
   const langToggle = useLanguage;
+  let fadeY = React.useRef([]);
+  fadeY.current = [];
+
+  React.useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    fadeY.current.forEach((el) => {
+      gsap.fromTo(
+        el,
+        {
+          opacity: 0,
+          y: 140,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          delay: 0.25,
+          scrollTrigger: {
+            trigger: el,
+            start: 'top bottom',
+            toggleActions: 'play none none reverse',
+          },
+        }
+      );
+    });
+  }, []);
+
+  const fadeYRefs = (el) => {
+    if (el && !fadeY.current.includes(el)) {
+      fadeY.current.push(el);
+    }
+  };
+
+  function refreshFunc() {
+    ScrollTrigger.refresh(true);
+  }
 
   return (
     <>
@@ -22,8 +61,10 @@ const PortfolioPage = ({ data }) => {
             'A combination of different \ndirections and materials'
           )}
           gallery={data.allStrapiPortfolio.nodes}
+          ref={fadeYRefs}
+          refreshFunc={refreshFunc}
         />
-        <CrumbsNav crumbsNav={portfolioStatic.crumbsNav} />
+        <CrumbsNav crumbsNav={portfolioStatic.crumbsNav} ref={fadeYRefs} />
       </Layout>
     </>
   );

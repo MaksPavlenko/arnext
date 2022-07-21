@@ -1,5 +1,10 @@
 @import './ImageCarouselFirst/ImageCarouselFirst' 
 
+.services-inner__main
+  padding-bottom: 90px
+  @media screen and ( max-width: $page-wrapper )
+    padding-bottom: calc( 40px + (90 - 40) * ((100vw - 320px) / (1440 - 320)))
+
 .services-inner__main-header
   padding: 200px 6vw 0 6vw
   +media-breakpoint-down(md)
@@ -7,4 +12,4 @@
 
 .main-screen-slider
   position: relative
-  overflow: hidden
+  overflow: hidden 

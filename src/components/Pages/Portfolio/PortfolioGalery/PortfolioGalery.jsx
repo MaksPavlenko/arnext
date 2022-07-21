@@ -1,39 +1,13 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { gsap } from "gsap";
-import GalleryItem from "./GalleryItem/GalleryItem";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const PortfolioGalery = ({ galleryState }) => {
+import GalleryItem from './GalleryItem/GalleryItem';
 
-  let itemEl = React.useRef([]);
-  itemEl.current = [];
-
-  React.useEffect(() => {
-    itemEl.current.forEach((el, index) => {
-      gsap.fromTo(
-        el,
-        {
-          opacity: 0,
-          y: 100,
-        },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1.4,
-          delay: 0.6,
-        }
-      );
-    });
-  }, []);
-
-  const addToRefs = el => {
-    if (el && !itemEl.current.includes(el)) {
-      itemEl.current.push(el);
-    }
-  };
+const PortfolioGalery = React.forwardRef((props, ref) => {
+  const { galleryState } = props;
 
   return (
-    <section className="portfolio-gallery" ref={addToRefs}>
+    <section className="portfolio-gallery" ref={ref}>
       <div className="section-wrapper">
         <div className="portfolio-items">
           {galleryState.reduce((result, item, index) => {
@@ -43,7 +17,7 @@ const PortfolioGalery = ({ galleryState }) => {
 
             result.push(
               <div key={index} className="portfolio-item">
-                <div className={`img-wrapper ${isReverse && "reverse"}`}>
+                <div className={`img-wrapper ${isReverse && 'reverse'}`}>
                   <GalleryItem item={item} />
                   <GalleryItem item={galleryState[index + 1]} />
                 </div>
@@ -56,7 +30,7 @@ const PortfolioGalery = ({ galleryState }) => {
       </div>
     </section>
   );
-};
+});
 
 PortfolioGalery.propTypes = {
   galleryState: PropTypes.array,

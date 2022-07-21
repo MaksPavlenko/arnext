@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import FactsItems from './FactsItems/FactsItems';
 import SectionHeader from '../SectionHeader/SectionHeader';
 
-const Facts = ({ facts, markerCount, markerTitle, sectionTitle }) => {
+const Facts = React.forwardRef((props, ref) => {
+  const { facts, markerCount, markerTitle, sectionTitle } = props;
+
   return (
     <section className="facts default-section">
       <div className="section-wrapper">
@@ -12,13 +14,14 @@ const Facts = ({ facts, markerCount, markerTitle, sectionTitle }) => {
           markerCount={markerCount}
           markerTitle={markerTitle}
           sectionTitle={sectionTitle}
+          ref={ref}
         />
 
-        <FactsItems facts={facts} />
+        <FactsItems facts={facts} ref={ref} />
       </div>
     </section>
   );
-};
+});
 
 Facts.propTypes = {
   facts: PropTypes.object,

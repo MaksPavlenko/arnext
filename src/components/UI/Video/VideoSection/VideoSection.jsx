@@ -38,8 +38,14 @@ const VideoSection = ({ openPopUp, cover }) => {
       className="video-section default-section"
       ref={(e) => (triggerEl = e)}
     >
-      <div className="video-cover" ref={(e) => (coverEl = e)}>
-        <GatsbyImage image={image} className="video-cover__image" alt="video" />
+      <div className="video-cover__wrapper">
+        <div className="video-cover" ref={(e) => (coverEl = e)}>
+          <GatsbyImage
+            image={image}
+            className="video-cover__image"
+            alt="video"
+          />
+        </div>
       </div>
 
       <button onClick={openPopUp} className="play-button">

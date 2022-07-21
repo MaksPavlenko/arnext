@@ -1,10 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import MainScreenHeader from "../../../UI/MainScreenHeader/MainScreenHeader";
-import useLanguage from "../../../../hooks/useLanguage";
-import { GatsbyImage, getImage } from "gatsby-plugin-image";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import MainScreenHeader from '../../../UI/MainScreenHeader/MainScreenHeader';
+import useLanguage from '../../../../hooks/useLanguage';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
 const AboutMain = ({ title, subTitle, intro, mainImage }) => {
   const image = getImage(mainImage.localFile);
@@ -19,7 +19,7 @@ const AboutMain = ({ title, subTitle, intro, mainImage }) => {
       overlayEl,
       { y: 0 },
       {
-        y: "-100%",
+        y: '-100%',
         duration: 1.2,
         delay: 0.4,
       }
@@ -46,8 +46,8 @@ const AboutMain = ({ title, subTitle, intro, mainImage }) => {
         delay: 0.3,
         scrollTrigger: {
           trigger: introEl,
-          start: "top bottom",
-          toggleActions: "play none none reverse",
+          start: 'top bottom',
+          toggleActions: 'play none none reverse',
         },
       }
     );
@@ -58,16 +58,16 @@ const AboutMain = ({ title, subTitle, intro, mainImage }) => {
       <div className="about-us__wrapper">
         <MainScreenHeader title={title} subTitle={subTitle} />
       </div>
-      <div className="about-us__cover" ref={e => (imageEl = e)}>
+      <div className="about-us__cover" ref={(e) => (imageEl = e)}>
         <div
           className="services__main-cover__overlay"
-          ref={e => (overlayEl = e)}
+          ref={(e) => (overlayEl = e)}
         ></div>
         <GatsbyImage image={image} className="founder__image" alt={title} />
       </div>
       <div className="about-us__wrapper">
-        <div className="about-us__intro">
-          <p ref={e => (introEl = e)}>
+        <div className="about-us__intro default-section">
+          <p ref={(e) => (introEl = e)}>
             {useLanguage(intro.title_ua, intro.title_ru, intro.title_en)}
           </p>
         </div>

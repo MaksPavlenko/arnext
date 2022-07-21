@@ -1,6 +1,8 @@
 import React from 'react';
 import { graphql } from 'gatsby';
-// import MediaQuery from 'react-responsive';
+import { useBreakpoint } from 'gatsby-plugin-breakpoints';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import useLanguage from '../hooks/useLanguage';
 import '../styles/style.sass';
 
@@ -9,21 +11,16 @@ import Seo from '../components/Layout/seo';
 import HomeMain from '../components/Pages/Home/HomeMain/HomeMain';
 import HomeStory from '../components/Pages/Home/HomeStory/HomeStory';
 import Video from '../components/UI/Video/Video';
-// import ServicePackages from '../components/UI/ServicePackages/ServicePackages';
 import Feedback from '../components/UI/Feedback/Feedback';
 import Quote from '../components/UI/Quote/Quote';
-// import ServicesSection from '../components/UI/ServicesSection/ServicesSection';
-import CasesSlider from '../components/UI/CasesSlider/CasesSlider';
-import PortfolioMobile from '../components/Pages/Home/PortfolioMobile/PortfolioMobile';
+// import CasesSlider from '../components/UI/CasesSlider/CasesSlider';
+// import PortfolioMobile from '../components/Pages/Home/PortfolioMobile/PortfolioMobile';
 import Facts from '../components/UI/Facts/Facts';
 import HomeServices from '../components/Pages/Home/HomeServices/HomeServices';
 
 // import servicesStatic from '../db/servicesStatic';
 import homeData from '../db/homeData';
-import {
-  MediaMaxWidth,
-  MediaMinWidh,
-} from '../components/UI/MadiaQueryWrapper/MadiaQueryWrapper';
+import TestSliderHome from '../components/Pages/Home/TestSliderHome/TestSliderHome';
 
 const IndexPage = ({ data }) => {
   // const staticServices = servicesStatic;
@@ -31,16 +28,76 @@ const IndexPage = ({ data }) => {
   const dataHomePage = data.strapiHomes;
   const dataHomecontacts = data.strapiContacts;
 
+  const langToggle = useLanguage;
+  const breakpoints = useBreakpoint();
+
+  let fadeY = React.useRef([]);
+  fadeY.current = [];
+
+  let fadeOverlay = React.useRef([]);
+  fadeOverlay.current = [];
+
+  React.useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    fadeY.current.forEach((el) => {
+      gsap.fromTo(
+        el,
+        {
+          opacity: 0,
+          y: 140,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          delay: 0.25,
+          scrollTrigger: {
+            trigger: el,
+            start: 'top bottom',
+            toggleActions: 'play none none reverse',
+          },
+        }
+      );
+    });
+    fadeOverlay.current.forEach((el) => {
+      gsap.fromTo(
+        el,
+        { y: 0 },
+        {
+          y: '-100%',
+          duration: 1.5,
+          scrollTrigger: {
+            trigger: el,
+            start: 'top bottom',
+            toggleActions: 'play none none reverse',
+          },
+        }
+      );
+    });
+  }, []);
+
+  const fadeYRefs = (el) => {
+    if (el && !fadeY.current.includes(el)) {
+      fadeY.current.push(el);
+    }
+  };
+
+  const fadeOverlayRefs = (el) => {
+    if (el && !fadeOverlay.current.includes(el)) {
+      fadeOverlay.current.push(el);
+    }
+  };
+
   return (
     <>
       <Layout>
         <Seo
-          title={useLanguage(
+          title={langToggle(
             dataHomePage.Seo_title_ua,
             dataHomePage.Seo_title_ru,
             dataHomePage.Seo_title_en
           )}
-          description={useLanguage(
+          description={langToggle(
             dataHomePage.Seo_description_ua,
             dataHomePage.Seo_description_ru,
             dataHomePage.Seo_description_en
@@ -53,134 +110,88 @@ const IndexPage = ({ data }) => {
         <HomeStory
           storyImage={dataHomePage.story_image}
           dataStory={dataHomePage.story}
+          ref={{
+            fadeY: fadeYRefs,
+            fadeOver: fadeOverlayRefs,
+          }}
         />
-        {/* <MediaQuery minWidth={768}>
+        {breakpoints.sm ? null : (
           <Video cover={dataHomePage.cover_image} url={dataHomePage.video} />
-        </MediaQuery> */}
-        <MediaMinWidh>
-          <Video cover={dataHomePage.cover_image} url={dataHomePage.video} />
-        </MediaMinWidh>
+        )}
         <HomeServices
           services={homeData.services}
           markerCount={'02'}
-          markerTitle={useLanguage(
+          markerTitle={langToggle(
             homeData.services.marker_ua,
             homeData.services.marker_ru,
             homeData.services.marker_en
           )}
-          sectionTitle={useLanguage(
+          sectionTitle={langToggle(
             homeData.services.title_ua,
             homeData.services.title_ru,
             homeData.services.title_en
           )}
+          ref={fadeYRefs}
         />
-        {/* <MediaQuery minWidth={768}>
+        {/* <TestSliderHome dataPortfolio={data.allStrapiPortfolio.nodes} /> */}
+        {/* {breakpoints.sm ? (
+          <PortfolioMobile
+            sectionTitle={langToggle(
+              dataHomePage.portfolio.title_ua,
+              dataHomePage.portfolio.title_ru,
+              dataHomePage.portfolio.title_en
+            )}
+            dataPortfolio={data.allStrapiPortfolio.nodes}
+          />
+        ) : (
           <CasesSlider
             dataPortfolio={data.allStrapiPortfolio.nodes}
             markerCount={'03'}
-            markerTitle={useLanguage('портфоліо', 'Портфолио', 'Portfolio')}
-            sectionTitle={useLanguage(
+            markerTitle={langToggle('портфоліо', 'Портфолио', 'Portfolio')}
+            sectionTitle={langToggle(
               dataHomePage.portfolio.title_ua,
               dataHomePage.portfolio.title_ru,
               dataHomePage.portfolio.title_en
             )}
           />
-        </MediaQuery> */}
-        <MediaMinWidh>
-          <CasesSlider
-            dataPortfolio={data.allStrapiPortfolio.nodes}
-            markerCount={'03'}
-            markerTitle={useLanguage('портфоліо', 'Портфолио', 'Portfolio')}
-            sectionTitle={useLanguage(
-              dataHomePage.portfolio.title_ua,
-              dataHomePage.portfolio.title_ru,
-              dataHomePage.portfolio.title_en
-            )}
-          />
-        </MediaMinWidh>
-
-        {/* <MediaQuery maxWidth={767}>
-          <PortfolioMobile
-            sectionTitle={useLanguage(
-              dataHomePage.portfolio.title_ua,
-              dataHomePage.portfolio.title_ru,
-              dataHomePage.portfolio.title_en
-            )}
-            dataPortfolio={data.allStrapiPortfolio.nodes}
-          />
-        </MediaQuery> */}
-        <MediaMaxWidth>
-          <PortfolioMobile
-            sectionTitle={useLanguage(
-              dataHomePage.portfolio.title_ua,
-              dataHomePage.portfolio.title_ru,
-              dataHomePage.portfolio.title_en
-            )}
-            dataPortfolio={data.allStrapiPortfolio.nodes}
-          />
-        </MediaMaxWidth>
+        )} */}
         <Facts
           facts={homeData.facts}
           markerCount={'04'}
-          markerTitle={useLanguage(
+          markerTitle={langToggle(
             homeData.facts.marker_ua,
             homeData.facts.marker_ru,
             homeData.facts.marker_en
           )}
-          sectionTitle={useLanguage(
+          sectionTitle={langToggle(
             homeData.facts.title_ua,
             homeData.facts.title_ru,
             homeData.facts.title_en
           )}
+          ref={fadeYRefs}
         />
-        {/* <MediaQuery minWidth={574}>
-          <Quote quotes={dataHomePage.quotes} />
-        </MediaQuery> */}
-        <MediaMinWidh>
-          <Quote quotes={dataHomePage.quotes} />
-        </MediaMinWidh>
-
-        {/* <ServicesSection
-          markerCount={'02'}
-          markerTitle={useLanguage('Послуги', 'Услуги', 'Services')}
-          sectionTitle={useLanguage(
-            dataHomePage.services.title_ua,
-            dataHomePage.services.title_ru,
-            dataHomePage.services.title_en
-          )}
-          staticServices={staticServices}
-          dataServices={data.allStrapiServices.nodes}
-        /> */}
-
-        {/* <ServicePackages
-          markerCount={'03'}
-          markerTitle={useLanguage(
-            'пакети послуг',
-            'Пакеты услуг',
-            'Service packages'
-          )}
-          sectionTitle={useLanguage(
-            dataHomePage.packages.title_ua,
-            dataHomePage.packages.title_ru,
-            dataHomePage.packages.title_en
-          )}
-          dataServices={data.strapiServicesPages.packages}
-        /> */}
+        {breakpoints.sm ? null : (
+          <Quote quotes={dataHomePage.quotes} ref={fadeYRefs} />
+        )}
 
         <Feedback
           markerCount={'05'}
-          markerTitle={useLanguage(
+          markerTitle={langToggle(
             'залишити заявку',
             'Оставить заявку',
             'Submit your application'
           )}
-          sectionTitle={useLanguage(
+          sectionTitle={langToggle(
             dataHomecontacts.feedBack.title_ua,
             dataHomecontacts.feedBack.title_ru,
             dataHomecontacts.feedBack.title_en
           )}
           dataContacts={dataHomecontacts}
           imageContact={dataHomecontacts.feedBack.image}
+          ref={{
+            fadeY: fadeYRefs,
+            fadeOver: fadeOverlayRefs,
+          }}
         />
       </Layout>
     </>

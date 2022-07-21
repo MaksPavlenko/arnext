@@ -1,46 +1,56 @@
 import React from 'react';
-import { gsap } from 'gsap';
+// import { gsap } from 'gsap';
 // import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import useLanguage from '../../../../../hooks/useLanguage';
 
-const Accordion = ({ items }) => {
+const Accordion = React.forwardRef((props, ref) => {
+  const { items, refreshFunc } = props;
+
   const [activeItemID, setActiveItemID] = React.useState(0);
 
   const langToggle = useLanguage;
 
-  let itemEl = React.useRef([]);
-  itemEl.current = [];
+  // let itemEl = React.useRef([]);
+  // itemEl.current = [];
 
-  React.useEffect(() => {
-    // gsap.registerPlugin(ScrollTrigger);
+  // React.useEffect(() => {
+  //   // gsap.registerPlugin(ScrollTrigger);
 
-    itemEl.current.forEach((el, index) => {
-      gsap.fromTo(
-        el,
-        {
-          opacity: 0,
-          y: 100,
-        },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1.2,
-          delay: 0.3,
-          scrollTrigger: {
-            trigger: el,
-            start: 'top bottom',
-            toggleActions: 'play none none reverse',
-          },
-        }
-      );
-    });
-  }, []);
+  //   itemEl.current.forEach((el, index) => {
+  //     gsap.fromTo(
+  //       el,
+  //       {
+  //         opacity: 0,
+  //         y: 100,
+  //       },
+  //       {
+  //         opacity: 1,
+  //         y: 0,
+  //         duration: 1.2,
+  //         delay: 0.3,
+  //         scrollTrigger: {
+  //           trigger: el,
+  //           start: 'top bottom',
+  //           toggleActions: 'play none none reverse',
+  //         },
+  //       }
+  //     );
+  //   });
+  // }, []);
 
-  const addToRefs = (el) => {
-    if (el && !itemEl.current.includes(el)) {
-      itemEl.current.push(el);
-    }
-  };
+  // const addToRefs = (el) => {
+  //   if (el && !itemEl.current.includes(el)) {
+  //     itemEl.current.push(el);
+  //   }
+  // };
+
+  // function toggleAccordion(id) {
+  //   if (activeItemID === id) {
+  //     setActiveItemID(0);
+  //   } else {
+  //     setActiveItemID(id);
+  //   }
+  // }
 
   return (
     <div className="accordion">
@@ -48,22 +58,16 @@ const Accordion = ({ items }) => {
         const count = index + 1;
 
         return (
-          <div
-            className="accordion-item"
-            key={index}
-            id={item.id}
-            ref={addToRefs}
-          >
+          <div className="accordion-item" key={index} id={item.id} ref={ref}>
             <div
               role="presentation"
               className={
                 activeItemID === item.id ? 'question is-active' : 'question'
               }
-              onClick={() =>
-                activeItemID === item.id
-                  ? setActiveItemID(0)
-                  : setActiveItemID(item.id)
-              }
+              onClick={() => {
+                setActiveItemID(activeItemID === item.id ? 0 : item.id);
+                refreshFunc();
+              }}
             >
               <div className="question-left">
                 <span className="question-count">
@@ -100,6 +104,6 @@ const Accordion = ({ items }) => {
       })}
     </div>
   );
-};
+});
 
 export default Accordion;

@@ -95,34 +95,38 @@ const homeData = {
     cover: 'img',
     items: [
       {
-        title_ua: 'Нагород',
-        title_ru: 'Наград',
-        title_en: 'Awards',
-        number: '45',
+        title_ua: 'Розроблених дизайн проектів',
+        title_ru: 'Разработаных дизайн проектов',
+        title_en: 'Developed design projects',
+        number: '370+',
       },
       {
-        title_ua: 'Років досвіду',
-        title_ru: 'Лет опыта',
-        title_en: 'Years of experience',
-        number: '12',
+        title_ua: "Анна Розумова – дизайнер інтер'єру з досвідом 10+ років.",
+        title_ru: ' Анна Разумова — дизайнер интерьера с опытом 10+ лет.',
+        title_en:
+          'Anna Razumova is an interior designer with 10+ years of experience.',
+        number: '10+',
       },
       {
-        title_ua: 'Проектів реалізовано',
-        title_ru: 'Проектов реализовано',
-        title_en: 'Projects have been implemented',
-        number: '250+',
+        title_ua: "Реалізованих об'єктів під ключ",
+        title_ru: 'Реализованных объектов под ключ',
+        title_en: 'Realized turnkey objects',
+        number: '150+',
       },
       {
-        title_ua: 'Щасливих клієнтів',
-        title_ru: 'Счастливых клиентов',
-        title_en: 'Happy customers',
-        number: '195+',
+        title_ua:
+          'Ми чуємо клієнта на 101%. Узгоджено 80% проектів без жодного виправлення.',
+        title_ru:
+          'Мы слышим клиента на 101%. Согласованно 80% проектов без единой правки.',
+        title_en:
+          'We listen to the client 101%. Agreed 80% of projects without a single edit.',
+        number: '101%',
       },
       {
-        title_ua: 'Спеціалістів в команді',
-        title_ru: 'Специалистов в команде',
-        title_en: 'Specialists in the team',
-        number: '16',
+        title_ua: 'Наш рекорд 30 одночасних дизайн проектів.',
+        title_ru: 'Наш рекорд 30 одновременных дизайн проектов.',
+        title_en: 'Our record is 30 simultaneous design projects.',
+        number: '30',
       },
     ],
   },

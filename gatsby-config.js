@@ -1,8 +1,16 @@
-require("dotenv").config({
+require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
 });
 
-const { languages, defaultLanguage } = require("./languages");
+const { languages, defaultLanguage } = require('./languages');
+const myCustomQueries = {
+  xs: '(max-width: 576px)',
+  sm: '(max-width: 768px)',
+  md: '(max-width: 992px)',
+  l: '(max-width: 1200px)',
+  xl: '(max-width: 1400px)',
+  portrait: '(orientation: portrait)',
+};
 
 module.exports = {
   siteMetadata: {
@@ -35,6 +43,12 @@ module.exports = {
       options: {
         path: `${__dirname}/locales`,
         name: `locale`,
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-breakpoints',
+      options: {
+        queries: myCustomQueries,
       },
     },
 
@@ -164,7 +178,7 @@ module.exports = {
     {
       resolve: `gatsby-source-strapi`,
       options: {
-        apiURL: "https://admin.ar-design.com.ua",
+        apiURL: 'http://78.47.177.69:1337',
         queryLimit: 6000, // Defaults to 100
         collectionTypes: [
           `portfolio`,
@@ -183,7 +197,7 @@ module.exports = {
       },
     },
     {
-      resolve: "gatsby-plugin-react-svg",
+      resolve: 'gatsby-plugin-react-svg',
       options: {
         rule: {
           include: /svg/, // See below to configure properly
@@ -191,11 +205,11 @@ module.exports = {
       },
     },
     {
-      resolve: "gatsby-plugin-social9-socialshare",
+      resolve: 'gatsby-plugin-social9-socialshare',
       options: {
         async: true,
         defer: true,
-        content: "f468d7ec37614593ac21a3669427fa3c",
+        content: 'f468d7ec37614593ac21a3669427fa3c',
       },
     },
     // To learn more, visit: https://gatsby.dev/offline // this (optional) plugin enables Progressive Web App + Offline functionality

@@ -9,10 +9,13 @@
     padding: 0 6vw
 
 .decor-left
+  display: block
   position: absolute
   top: 50%
   left: 0
   transform: translateY(-50%)
+  +media-breakpoint-down(lg)
+    width: 80%
   +media-breakpoint-down(md)
     display: none
 
@@ -21,8 +24,8 @@
   margin-bottom: -90px
   +media-breakpoint-down(lg)
     margin-bottom: -80px
-  +media-breakpoint-down(md)
-    margin-bottom: 40px
+  // +media-breakpoint-down(md)
+  //   margin-bottom: 40px
   +media-breakpoint-down(sm)
     min-width: 100%
 
@@ -31,21 +34,21 @@
   display: flex
   align-items: flex-end
   justify-content: space-between
-  +media-breakpoint-down(md)
-    flex-wrap: wrap
+  // +media-breakpoint-down(md)
+  //   flex-wrap: wrap
 
 
 .instagram-images--left
   width: 28%
   padding-right: 2%
-  +media-breakpoint-down(md)
-    width: 50%
-    order: 1
-    padding: 0
-  .instagram-image
-    +media-breakpoint-down(md)
-      padding: 0
-      margin: 0
+  // +media-breakpoint-down(md)
+  //   width: 50%
+  //   order: 1
+  //   padding: 0
+  // .instagram-image
+  //   +media-breakpoint-down(md)
+  //     padding: 0
+  //     margin: 0
 
 .instagram-image--1
   padding-left: 55%
@@ -58,18 +61,18 @@
 .instagram-image--5
   padding-right: 55%
   margin-top: 20%
-  +media-breakpoint-down(md)
-    display: none
+  // +media-breakpoint-down(md)
+  //   display: none
 
 
 .instagram-images--center
   width: 44%
   padding: 0 3.5% 0 3.5%
   align-self: flex-start
-  +media-breakpoint-down(md)
-    width: 100%
-    order: 3
-    padding: 0
+  // +media-breakpoint-down(md)
+  //   width: 100%
+  //   order: 3
+  //   padding: 0
   .content-wrapper
     position: relative
     background: $black
@@ -81,12 +84,12 @@
     overflow: hidden
     +media-breakpoint-down(lg)
       padding: 16% 0
-    +media-breakpoint-down(md)
-      margin-top: 40px
-      background: transparent
-      padding: 0
-      flex-direction: row
-      justify-content: space-between
+    // +media-breakpoint-down(md)
+    //   margin-top: 40px
+    //   background: transparent
+    //   padding: 0
+    //   flex-direction: row
+    //   justify-content: space-between
     .instagram-title
       font-size: 22px
       font-weight: 600
@@ -98,8 +101,8 @@
         font-size: 18px
         line-height: 18px
         margin-bottom: 20px
-      +media-breakpoint-down(md)
-        display: none
+      // +media-breakpoint-down(md)
+      //   display: none
     .instagram-logo
       width: 100px
       height: 100px
@@ -112,8 +115,8 @@
         width: 90px
         height: 90px
         margin-bottom: 20px
-      +media-breakpoint-down(md)
-        display: none
+      // +media-breakpoint-down(md)
+      //   display: none
     .instagram-adress
       font-size: 14px
       line-height: 14px
@@ -122,9 +125,9 @@
       margin-bottom: 25px
       +media-breakpoint-down(lg)
         margin-bottom: 20px
-      +media-breakpoint-down(md)
-        margin: 0
-        color: $black
+      // +media-breakpoint-down(md)
+      //   margin: 0
+      //   color: $black
 
 
 .instagram-link
@@ -134,18 +137,18 @@
   justify-content: space-between
   padding: 6px 0
   overflow: hidden
-  +media-breakpoint-down(md)
-    svg
-      path
-        fill: $black
+  // +media-breakpoint-down(md)
+  //   svg
+  //     path
+  //       fill: $black
   &--title
     font-size: 12px
     font-weight: 600
     text-transform: uppercase
     color: #fff
     letter-spacing: 0.04em
-    +media-breakpoint-down(md)
-      color: $black
+    // +media-breakpoint-down(md)
+    //   color: $black
   &--icon
     width: 9px
     height: 9px
@@ -161,8 +164,8 @@
   &::before
     width: 100%
     background: #fff
-    +media-breakpoint-down(md)
-      background: $black
+    // +media-breakpoint-down(md)
+    //   background: $black
   &::after
     width: 100%
     background: $black
@@ -176,16 +179,23 @@
 .instagram-images--right
   width: 28%
   padding-left: 2%
-  +media-breakpoint-down(md)
-    width: 50%
-    order: 2
-    padding: 0
-  .instagram-image
-    +media-breakpoint-down(md)
-      padding: 0
-      margin: 0
+  // +media-breakpoint-down(md)
+  //   width: 50%
+  //   order: 2
+  //   padding: 0
+  // .instagram-image
+  //   +media-breakpoint-down(md)
+  //     padding: 0
+  //     margin: 0
 
 
 .instagram-image
+  display: block
   width: 100%
   height: 100%
+  .image
+    transition: transform .3s ease-in-out
+  @media (any-hover: hover)
+    &:hover
+      .image
+        transform: scale(0.9)

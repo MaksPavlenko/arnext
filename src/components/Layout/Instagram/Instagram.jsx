@@ -96,6 +96,7 @@ const Instagram = ({ instaData }) => {
               'Проекты, релизы и интересный материал',
               'Projects, release and interesting material!'
             )}
+            ref={addToRefs}
           />
         </header>
 
@@ -108,13 +109,19 @@ const Instagram = ({ instaData }) => {
 
               if (index <= 2) {
                 return (
-                  <div
+                  <a
+                    href="https://www.instagram.com/ar.design.studio/"
+                    target="blank"
                     className={`instagram-image instagram-image--${count}`}
                     key={index}
                     ref={addToRefs}
                   >
-                    <GatsbyImage image={image} className="image" alt="" />
-                  </div>
+                    <GatsbyImage
+                      image={image}
+                      className="image"
+                      alt="anna razumova instagram"
+                    />
+                  </a>
                 );
               } else {
                 return null;
@@ -154,13 +161,19 @@ const Instagram = ({ instaData }) => {
 
               if (index > 2) {
                 return (
-                  <div
+                  <a
+                    href="https://www.instagram.com/ar.design.studio/"
+                    target="blank"
                     className={`instagram-image instagram-image--${count}`}
                     key={index}
                     ref={addToRefs}
                   >
-                    <GatsbyImage image={image} className="image" alt="" />
-                  </div>
+                    <GatsbyImage
+                      image={image}
+                      className="image"
+                      alt="anna razumova instagram"
+                    />
+                  </a>
                 );
               } else {
                 return null;

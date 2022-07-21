@@ -1,72 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import SectionHeader from '../SectionHeader/SectionHeader';
 import ArrowLink from '../../../svg/arrowlinkblack.svg';
 
-const Feedback = ({
-  dataContacts,
-  imageContact,
-  markerCount,
-  markerTitle,
-  sectionTitle,
-}) => {
-  let overlayEl = React.useRef(null);
-  let itemEl = React.useRef([]);
-  itemEl.current = [];
+const Feedback = React.forwardRef((props, ref) => {
+  const {
+    dataContacts,
+    imageContact,
+    markerCount,
+    markerTitle,
+    sectionTitle,
+  } = props;
 
-  React.useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
-    itemEl.current.forEach((el, index) => {
-      gsap.fromTo(
-        el,
-        {
-          opacity: 0,
-          y: 100,
-        },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1.2,
-          delay: 0.3,
-          scrollTrigger: {
-            trigger: el,
-            start: 'top bottom',
-            toggleActions: 'play none none reverse',
-          },
-        }
-      );
-    });
-    gsap.fromTo(
-      overlayEl,
-      { y: 0 },
-      {
-        y: '-100%',
-        duration: 1.2,
-        scrollTrigger: {
-          trigger: overlayEl,
-          start: 'center bottom',
-          end: 'center bottom',
-          toggleActions: 'play none none reverse',
-        },
-      }
-    );
-  }, []);
-
-  const addToRefs = (el) => {
-    if (el && !itemEl.current.includes(el)) {
-      itemEl.current.push(el);
-    }
-  };
+  const { fadeY, fadeOver } = ref;
   const image = getImage(imageContact.localFile);
+
   return (
     <section className="feedback-section default-section">
       <div className="feedback-image__wrapper">
-        <div className="animate-overlay" ref={(e) => (overlayEl = e)}></div>
+        <div className="animate-overlay" ref={fadeOver}></div>
         <GatsbyImage
           image={image}
           className="feedback__image"
@@ -78,15 +32,12 @@ const Feedback = ({
           markerCount={markerCount}
           markerTitle={markerTitle}
           sectionTitle={sectionTitle}
+          ref={fadeY}
         />
         <ul className="feedback-messanger">
           {dataContacts.messengers.map((item, index) => {
             return (
-              <li
-                className="feedback-messanger__item"
-                key={index}
-                ref={addToRefs}
-              >
+              <li className="feedback-messanger__item" key={index} ref={fadeY}>
                 <a
                   href={item.link}
                   className="feedback-messanger__item-link"
@@ -100,7 +51,7 @@ const Feedback = ({
               </li>
             );
           })}
-          <li className="feedback-messanger__item" ref={addToRefs}>
+          <li className="feedback-messanger__item" ref={fadeY}>
             <a
               href={`mailto:${dataContacts.email}`}
               className="feedback-messanger__item-link"
@@ -113,7 +64,7 @@ const Feedback = ({
       </div>
     </section>
   );
-};
+});
 
 Feedback.propTypes = {
   dataContacts: PropTypes.object,
